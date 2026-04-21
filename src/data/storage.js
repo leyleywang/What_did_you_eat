@@ -19,6 +19,13 @@ export const addMeal = (meal) => {
   return newMeal
 }
 
+export const deleteMeal = (mealId) => {
+  const meals = getMeals()
+  const updatedMeals = meals.filter((meal) => meal.id !== mealId)
+  saveMeals(updatedMeals)
+  return updatedMeals
+}
+
 export const getCheckIns = () => {
   const checkIns = localStorage.getItem('checkIns')
   return checkIns ? JSON.parse(checkIns) : {}
