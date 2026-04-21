@@ -138,10 +138,15 @@ const HomePage = () => {
       </button>
 
       {showResult && selectedMeal && (
-        <div className="result-modal">
-          <div className="result-content">
-            <h2>今天吃这个！</h2>
-            <img src={selectedMeal.image} alt={selectedMeal.name} />
+        <div className="result-modal" onClick={handleCancel}>
+          <div className="result-content" onClick={(e) => e.stopPropagation()}>
+            <div className="result-header">
+              <h2>今天吃这个！</h2>
+              <button className="close-btn" onClick={handleCancel}>×</button>
+            </div>
+            <div className="result-image-wrapper">
+              <img src={selectedMeal.image} alt={selectedMeal.name} className="result-image" />
+            </div>
             <h3>{selectedMeal.name}</h3>
             <div className="nutrition">
               <span>蛋白质 {selectedMeal.protein}g</span>
