@@ -184,23 +184,24 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px 24px 0 24px;
+  padding: 16px 20px;
 }
 
 .result-header h2 {
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 600;
   margin: 0;
   color: #333;
+  line-height: 1.5;
 }
 
 .result-header .close-btn {
   background: none;
   border: none;
-  font-size: 28px;
+  font-size: 24px;
   color: #999;
   cursor: pointer;
-  padding: 0;
+  padding: 4px;
   line-height: 1;
   width: 32px;
   height: 32px;
@@ -208,6 +209,7 @@ body {
   align-items: center;
   justify-content: center;
   border-radius: 50%;
+  flex-shrink: 0;
 }
 
 .result-header .close-btn:hover {
@@ -353,19 +355,20 @@ body {
   bottom: 0;
   background-color: rgba(0, 0, 0, 0.5);
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   justify-content: center;
   z-index: 200;
 }
 
 .modal-content {
   background-color: white;
-  border-radius: 20px 20px 0 0;
+  border-radius: 20px;
   padding: 24px;
   width: 100%;
-  max-width: 430px;
+  max-width: 380px;
   max-height: 90vh;
   overflow-y: auto;
+  margin: 20px;
 }
 
 .modal-header {
