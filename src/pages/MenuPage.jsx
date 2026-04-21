@@ -1,10 +1,12 @@
 import { useState, useEffect, useRef } from 'react'
-import { getMeals, addMeal } from '../data/storage'
+import { getMeals, addMeal, deleteMeal } from '../data/storage'
 import { PlusIcon, UploadIcon, EmptyMealIcon } from '../components/Icons'
 
 const MenuPage = () => {
   const [meals, setMeals] = useState([])
   const [showModal, setShowModal] = useState(false)
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false)
+  const [mealToDelete, setMealToDelete] = useState(null)
   const [formData, setFormData] = useState({
     name: '',
     image: '',
@@ -91,6 +93,26 @@ const MenuPage = () => {
     setPreviewImage('')
   }
 
+  const handleDeleteClick = (meal, e) => {
+    e.stopPropagation()
+    setMealToDelete(meal)
+    setShowDeleteConfirm(true)
+  }
+
+  const handleConfirmDelete = () => {
+    if (mealToDelete) {
+      deleteMeal(mealToDelete.id)
+      loadMeals()
+    }
+    setShowDeleteConfirm(false)
+    setMealToDelete(null)
+  }
+
+  const handleCancelDelete = () => {
+    setShowDeleteConfirm(false)
+    setMealToDelete(null)
+  }
+
   return (
     <div className="app-container">
       <h2 className="text-xl font-bold p-4">餐单管理</h2>
@@ -104,6 +126,12 @@ const MenuPage = () => {
         <div className="meal-list">
           {meals.map((meal) => (
             <div key={meal.id} className="meal-item">
+              <button
+                className="delete-btn"
+                onClick={(e) => handleDeleteClick(meal, e)}
+              >
+                ×
+              </button>
               <img src={meal.image} alt={meal.name} />
               <div className="info">
                 <h3>{meal.name}</h3>
@@ -213,6 +241,23 @@ const MenuPage = () => {
                 保存餐单
               </button>
             </form>
+          </div>
+        </div>
+      )}
+
+      {showDeleteConfirm && mealToDelete && (
+        <div className="result-modal delete-confirm-modal" onClick={handleCancelDelete}>
+          <div className="result-content" onClick={(e) => e.stopPropagation()}>
+            <h3>确认删除</h3>
+            <p>确定要删除「{mealToDelete.name}」吗？此操作不可撤销。</p>
+            <div className="actions">
+              <button className="delete-cancel-btn" onClick={handleCancelDelete}>
+                取消
+              </button>
+              <button className="delete-confirm-btn" onClick={handleConfirmDelete}>
+                删除
+              </button>
+            </div>
           </div>
         </div>
       )}
